@@ -2,7 +2,7 @@ package br.com.fiapride.main;
 
 import br.com.fiapride.model.Carro;
 
-public class Principal2 {
+public class TesteCarro {
 
     public static void main(String[] args) {
         System.out.println("=== INICIANDO O SISTEMA DA GARAGEM ===\n");
@@ -14,7 +14,7 @@ public class Principal2 {
         System.out.println("--- TESTANDO AÇÕES BLOQUEADAS ---");
         meuCarro.acelerar(50);             // Inválido: Carro desligado
         meuCarro.tocarMusica("Playlist");  // Inválido: Carro desligado
-        meuCarro.pintar("Preto");          // Inválido: Já tem essa cor
+
 
         System.out.println(); // Quebra de linha para organizar o console
 
@@ -23,7 +23,6 @@ public class Principal2 {
         meuCarro.ligar();                  // Válido
         meuCarro.tocarMusica("The Weeknd - Blinding Lights");
 
-        meuCarro.pintar("Prata Metálico"); // Válido: Muda o estado da cor
 
         meuCarro.acelerar(60);             // Válido: Acelera normalmente
         meuCarro.acelerar(200);            // Válido: Vai bater no limite de 250km/h
