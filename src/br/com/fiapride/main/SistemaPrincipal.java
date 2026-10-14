@@ -17,11 +17,11 @@ public class SistemaPrincipal {
         System.out.println("Passageiro 1: " + passageiro1.nome + " | Saldo: R$ " + passageiro1.saldo);
         System.out.println("Passageiro 2: " + passageiro2.nome + " | Saldo: R$ " + passageiro2.saldo);
 
-        //  Aplicando bônus no passageiro 1
+        // Aplicando bônus no passageiro 1
         System.out.println("\nAplicando bonus para passageiro 1:");
         passageiro1.darDesconto(10); // Dá 10% de bônus sobre os 50 reais
 
-        //  Transferindo saldo do passageiro 1 para o passageiro 2
+        // Transferindo saldo do passageiro 1 para o passageiro 2
         System.out.println("\nTransferindo saldo do passageiro 1 para o passageiro 2:");
         passageiro1.transferirSaldo(passageiro2, 15.0);
 
