@@ -1,6 +1,10 @@
 package br.com.fiapride.main;
 
-// Importando as classes do pacote model
+// Importamos o List e o ArrayList para o "Teste de Fogo"
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.fiapride.model.Carro;
 import br.com.fiapride.model.CarroEletrico;
 import br.com.fiapride.model.CarroEsportivo;
 import br.com.fiapride.model.Motorista;
@@ -8,48 +12,37 @@ import br.com.fiapride.model.Motorista;
 public class TesteCarro {
 
     public static void main(String[] args) {
-        System.out.println("=== SISTEMA FIAPRIDE: TESTE DE HERANÇA ===\n");
+        System.out.println("=== FIAPRIDE: O PODER DO POLIMORFISMO ===\n");
 
         // 1. Criando os Motoristas
-        Motorista isabelle = new Motorista("Isabelle Ramos", "123456789-00");
-        Motorista lucas = new Motorista("Lucas Silva", "987654321-11");
+        Motorista isabelle = new Motorista("Isabelle", "111");
+        Motorista lucas = new Motorista("Lucas", "222");
+        Motorista ana = new Motorista("Ana", "333");
 
-        // ====================================================================
-        // TESTE 1: CARRO ESPORTIVO
-        // ====================================================================
-        System.out.println("--- DADOS DO CARRO ESPORTIVO ---");
-        CarroEsportivo porsche = new CarroEsportivo("Porsche", "911 Turbo S", "Preto", isabelle);
+        // 2. Criando objetos de tipos diferentes (Mãe e Filhas)
+        Carro carroComum = new Carro("Toyota", "Corolla", "Prata", isabelle);
+        CarroEsportivo porsche = new CarroEsportivo("Porsche", "911 Turbo S", "Preto", lucas);
+        CarroEletrico tesla = new CarroEletrico("Tesla", "Model 3", "Branco", ana, 100);
 
-        // Exibindo dados herdados da classe Mãe
-        System.out.println("Veículo: " + porsche.getMarca() + " " + porsche.getModelo());
-        System.out.println("Piloto: " + porsche.getMotorista().getNome());
+        // 3. O TESTE DE FOGO: A Lista Tipada com a Superclasse
+        // Como o Esportivo e o Elétrico "são" um Carro, eles cabem na mesma lista!
+        List<Carro> frota = new ArrayList<>();
+        frota.add(carroComum);
+        frota.add(porsche);
+        frota.add(tesla);
 
-        // Usando método herdado da classe Mãe
-        porsche.ligar();
-        porsche.acelerar(100);
+        // 4. O Laço FOR Polimórfico
+        System.out.println("--- CALCULANDO SEGURO DA FROTA ---");
 
-        // Usando o método EXCLUSIVO da classe Filha
-        porsche.ativarTurbo();
+        for (Carro veiculo : frota) {
+            System.out.println("\nVeículo: " + veiculo.getMarca() + " " + veiculo.getModelo());
 
-        System.out.println("\n------------------------------------------------\n");
+            // A Mágica: O Java descobre sozinho qual método chamar de acordo com o tipo real do objeto criado!
+            double valorSeguro = veiculo.calcularTaxaSeguro();
 
-        // ====================================================================
-        // TESTE 2: CARRO ELÉTRICO
-        // ====================================================================
-        System.out.println("--- DADOS DO CARRO ELÉTRICO ---");
-        // Nota que o construtor do elétrico exige um 5º parâmetro (Nível de Bateria)
-        CarroEletrico tesla = new CarroEletrico("Tesla", "Model 3", "Branco", lucas, 15);
-
-        // Exibindo dados herdados da classe Mãe e dados Exclusivos
-        System.out.println("Veículo: " + tesla.getMarca() + " " + tesla.getModelo());
-        System.out.println("Motorista: " + tesla.getMotorista().getNome());
-        System.out.println("Bateria atual: " + tesla.getNivelDeBateria() + "%");
-
-        // Usando método herdado da classe Mãe
-        tesla.ligar();
-        tesla.acelerar(40);
-
-        // Usando o método EXCLUSIVO da classe Filha
-        tesla.recarregarNaTomada();
+            System.out.println("Proprietário: " + veiculo.getMotorista().getNome());
+            System.out.println("Valor a pagar: R$ " + valorSeguro);
+            System.out.println("------------------------------------");
+        }
     }
 }
