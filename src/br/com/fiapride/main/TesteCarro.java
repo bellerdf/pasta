@@ -1,34 +1,55 @@
 package br.com.fiapride.main;
 
-// Importando as duas classes necessárias do pacote model
-import br.com.fiapride.model.Carro;
+// Importando as classes do pacote model
+import br.com.fiapride.model.CarroEletrico;
+import br.com.fiapride.model.CarroEsportivo;
 import br.com.fiapride.model.Motorista;
 
 public class TesteCarro {
 
     public static void main(String[] args) {
-        System.out.println("=== INICIANDO O SISTEMA DA GARAGEM ===\n");
+        System.out.println("=== SISTEMA FIAPRIDE: TESTE DE HERANÇA ===\n");
 
-        // 1. NOVA REGRA: Precisamos criar o Motorista ANTES do carro
-        Motorista motoristaIsabelle = new Motorista("Isabelle Ramos", "123456789-00");
+        // 1. Criando os Motoristas
+        Motorista isabelle = new Motorista("Isabelle Ramos", "123456789-00");
+        Motorista lucas = new Motorista("Lucas Silva", "987654321-11");
 
-        // 2. CORREÇÃO DO ERRO: Passando as 4 informações, incluindo o objeto motorista no final
-        Carro meuCarro = new Carro("Porsche", "911 Carrera", "Preto", motoristaIsabelle);
+        // ====================================================================
+        // TESTE 1: CARRO ESPORTIVO
+        // ====================================================================
+        System.out.println("--- DADOS DO CARRO ESPORTIVO ---");
+        CarroEsportivo porsche = new CarroEsportivo("Porsche", "911 Turbo S", "Preto", isabelle);
 
-        // 3. Testando os bloqueios (regras de negócio)
-        System.out.println("--- TESTANDO AÇÕES BLOQUEADAS ---");
-        meuCarro.acelerar(50);             // Inválido: Carro desligado
-        meuCarro.tocarMusica("Playlist");  // Inválido: Carro desligado
+        // Exibindo dados herdados da classe Mãe
+        System.out.println("Veículo: " + porsche.getMarca() + " " + porsche.getModelo());
+        System.out.println("Piloto: " + porsche.getMotorista().getNome());
 
-        System.out.println(); // Quebra de linha para organizar o console
+        // Usando método herdado da classe Mãe
+        porsche.ligar();
+        porsche.acelerar(100);
 
-        // 4. Testando o fluxo ideal (ações permitidas)
-        System.out.println("--- TESTANDO AÇÕES VÁLIDAS ---");
-        meuCarro.ligar();                  // Válido
-        meuCarro.tocarMusica("The Weeknd - Blinding Lights");
+        // Usando o método EXCLUSIVO da classe Filha
+        porsche.ativarTurbo();
 
-        meuCarro.pintar("Prata Metálico"); // Válido: Muda o estado da cor
+        System.out.println("\n------------------------------------------------\n");
 
-        meuCarro.acelerar(60);             // Válido: Acelera normalmente
+        // ====================================================================
+        // TESTE 2: CARRO ELÉTRICO
+        // ====================================================================
+        System.out.println("--- DADOS DO CARRO ELÉTRICO ---");
+        // Nota que o construtor do elétrico exige um 5º parâmetro (Nível de Bateria)
+        CarroEletrico tesla = new CarroEletrico("Tesla", "Model 3", "Branco", lucas, 15);
+
+        // Exibindo dados herdados da classe Mãe e dados Exclusivos
+        System.out.println("Veículo: " + tesla.getMarca() + " " + tesla.getModelo());
+        System.out.println("Motorista: " + tesla.getMotorista().getNome());
+        System.out.println("Bateria atual: " + tesla.getNivelDeBateria() + "%");
+
+        // Usando método herdado da classe Mãe
+        tesla.ligar();
+        tesla.acelerar(40);
+
+        // Usando o método EXCLUSIVO da classe Filha
+        tesla.recarregarNaTomada();
     }
 }
